@@ -1,11 +1,13 @@
 {
   "name": "react-ton-x",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/index.js",
   "license": "MIT",
   "repository": "https://github.com/tonwhales/react-ton-x.git",
   "author": "Danila Volkov <danila@whalescorp.com>",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "description": "Tool for using ton-x with React",
   "scripts": {
     "build": "rm -fr dist && tsc",
