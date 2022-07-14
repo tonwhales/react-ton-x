@@ -6,6 +6,7 @@
   "repository": "https://github.com/tonwhales/react-ton-x.git",
   "author": "Danila Volkov <danila@whalescorp.com>",
   "files": ["dist"],
+  "description": "Tool for using ton-x with React",
   "scripts": {
     "build": "rm -fr dist && tsc",
     "release": "yarn build && yarn publish"

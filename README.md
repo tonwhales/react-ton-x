@@ -1,4 +1,11 @@
 # react-ton-x
+[![npm version](https://badge.fury.io/js/react-ton-x.svg)](https://badge.fury.io/js/react-ton-x)
+![npm dependencies](https://img.shields.io/librariesio/release/npm/react-ton-x)
+
+## Installation
+```
+yarn add react-ton-x
+```
 ## Usage
 Wrap your root component with **TonhubConnectProvider**
 ```jsx
