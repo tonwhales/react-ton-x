@@ -1,0 +1,23 @@
+{
+  "name": "react-ton-x",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "repository": "https://github.com/ton-whales/react-ton-x.git",
+  "author": "Danila Volkov <danila@whalescorp.com>",
+  "files": ["dist"],
+  "scripts": {
+    "build": "rm -fr dist && tsc",
+    "release": "yarn build && yarn publish"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.15",
+    "typescript": "^4.7.4"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
+  "dependencies": {
+    "ton-x": "^2.0.0"
+  }
+}
