@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "license": "MIT",
-  "repository": "https://github.com/ton-whales/react-ton-x.git",
+  "repository": "https://github.com/tonwhales/react-ton-x.git",
   "author": "Danila Volkov <danila@whalescorp.com>",
   "files": ["dist"],
   "scripts": {
