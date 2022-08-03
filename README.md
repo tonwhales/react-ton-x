@@ -1,19 +1,25 @@
 # react-ton-x
+
 [![npm version](https://badge.fury.io/js/react-ton-x.svg)](https://badge.fury.io/js/react-ton-x)
 ![npm dependencies](https://img.shields.io/librariesio/release/npm/react-ton-x)
 
 ## Installation
-```
+
+```zsh
 yarn add react-ton-x
 ```
+
 ## Usage
-Wrap your root component with **TonhubConnectProvider**
+
+You need add [hook](https://usehooks.com/useLocalStorage/) manually in the project which is developing:
+Then wrap your root component with **TonhubConnectProvider**
+
 ```jsx
 import { RemoteConnectPersistance, TonhubConnectProvider } from 'react-ton-x';
 
 const App = () => {
     // use any persistent state you want for remote connector
-    const [connectionState, setConnectionState] = useLocalStorage<RemoteConnectPersistance>('connection', { state: 'initing' });
+    const [connectionState, setConnectionState] = useLocalStorage<RemoteConnectPersistance>('connection', { type: 'initing' });
 
     return (
         <TonhubConnectProvider
@@ -28,8 +34,10 @@ const App = () => {
         </TonhubConnectProvider>
     )
 }
-``` 
+```
+
 When use hook in any child component:
+
 ```jsx
 import { useTonhubConnect } from 'react-ton-x';
 
