@@ -11,7 +11,7 @@ yarn add react-ton-x
 
 ## Usage
 
-You need add [hook](https://usehooks.com/useLocalStorage/) manually in the project which is developing:
+You need add [hook](https://usehooks.com/useLocalStorage/) manually in the project which is developing  
 Then wrap your root component with **TonhubConnectProvider**
 
 ```jsx
