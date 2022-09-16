@@ -13,7 +13,7 @@ import { RemoteConnectPersistance, TonhubConnectProvider } from 'react-ton-x';
 
 const App = () => {
     // use any persistent state you want for remote connector
-    const [connectionState, setConnectionState] = useLocalStorage<RemoteConnectPersistance>('connection', { state: 'initing' });
+    const [connectionState, setConnectionState] = useLocalStorage<RemoteConnectPersistance>('connection', { type: 'initing' });
 
     return (
         <TonhubConnectProvider
