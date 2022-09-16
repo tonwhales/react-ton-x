@@ -1,9 +1,9 @@
-import { backoff } from '@openland/patterns';
 import axios from 'axios';
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Address } from 'ton';
 import { TonhubConnector, TonhubSessionState, TonhubWalletConfig } from 'ton-x';
 import { RemoteConnectState, TonhubApi } from './types';
+import { backoff } from './utils/time';
 
 export type RemoteConnectPersistance = {
     type: 'initing'
@@ -62,7 +62,7 @@ export function useRemoteConnector(config: {
 	url: string, 
 	name: string, 
 	connectionState: RemoteConnectPersistance, 
-	setConnectionState: (state: (RemoteConnectPersistance | ((prevState: RemoteConnectPersistance) => RemoteConnectPersistance)), persist?: boolean) => void,
+	setConnectionState: (state: (RemoteConnectPersistance | ((prevState: RemoteConnectPersistance) => RemoteConnectPersistance))) => void,
 	debug: boolean
 }, active: boolean): { api: TonhubApi, state: RemoteConnectState } | null {
 	const log = (...args: any) => config.debug && console.log(...args);
