@@ -52,8 +52,12 @@ export const TonhubConnectProvider = React.memo<React.PropsWithChildren<Provider
 	const { state, api }  = localAvailable ? local! : remote!;
 	if (debug) console.log(localAvailable ? '[tonhub] using local connector' : '[tonhub] using remote connector');
 
+	const ctx = React.useMemo<TonhubConnection>(() => {
+		return { state, api, connector: localAvailable ? 'local': 'remote' };
+	}, [state, api]);
+
 	return (
-		<TonhubConnectContext.Provider value={{ state, api, connector: localAvailable ? 'local' : 'remote' }}>
+		<TonhubConnectContext.Provider value={ctx}>
 			{children}
 		</TonhubConnectContext.Provider>
 	);

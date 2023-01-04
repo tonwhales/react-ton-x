@@ -112,10 +112,16 @@ export function useRemoteConnector(config: {
 			setConnectionState({ type: 'initing' });
 		} else if (session.state === 'ready') {
 			setConnectionState((prevState) => {
+				// Inconsistent state (session hook in transition, ignore)
 				if (prevState.type === 'initing' || session?.state !== 'ready') {
 					return prevState;
 				}
 				if (prevState.session !== session.id) {
+					return prevState;
+				}
+
+				// States are equal
+				if (prevState.type === 'online' && session.id === prevState.session) {
 					return prevState;
 				}
 
@@ -124,17 +130,16 @@ export function useRemoteConnector(config: {
 					seed: prevState.seed,
 					session: prevState.session,
 					walletConfig: session.wallet,
-                    address: Address.parse(session.wallet.address)
 				};
 			});
 		}
 	}, [session]);
 
-    if (!connector) {
-        return null;
-    }
-
 	const revoke: TonhubApi['revoke'] = useCallback(() => {
+		if (!connector) {
+			throw new Error('No active tonhub connector');
+		}
+
 		log('[tonhub]: revoked by user');
 		if (connectionState.type === 'online') {
 			backoff(async () => {
@@ -147,8 +152,8 @@ export function useRemoteConnector(config: {
 		}
 
         setConnectionState({ type: 'initing' });
-	}, [connectionState]);
-    const requestSign: TonhubApi['requestSign'] = (request) => {
+	}, [connector, connectionState.type]);
+    const requestSign: TonhubApi['requestSign'] = useCallback((request) => {
         if (!connector) {
             throw new Error('No active tonhub connector');
         }
@@ -163,8 +168,8 @@ export function useRemoteConnector(config: {
             payload: request.payload,
             text: request.text
         });
-    }
-    const requestTransaction: TonhubApi['requestTransaction'] = (request) => {
+    }, [connector, connectionState.type]);
+    const requestTransaction: TonhubApi['requestTransaction'] =  useCallback((request) => {
         if (!connector) {
             throw new Error('No active tonhub connector');
         }
@@ -182,17 +187,26 @@ export function useRemoteConnector(config: {
             value: request.value,
             stateInit: request.stateInit
         });
-    }
+    }, [connector, connectionState.type]);
 
-    return {
-        api: {
+	// Use memo to avoid re-renders
+	const state = useMemo(() => {
+		return connectionState.type === 'online' ? {
+			...connectionState,
+			address: Address.parse(connectionState.walletConfig.address),
+		} : connectionState;
+	}, [connectionState]);
+
+	const api = useMemo(() => {
+		return {
             requestSign,
             requestTransaction,
             revoke
-        },
-        state: connectionState.type === 'online' ? {
-			...connectionState,
-			address: Address.parse(connectionState.walletConfig.address)
-		} : connectionState
+        };
+	}, [revoke, requestSign, requestTransaction]);
+
+    return {
+        api,
+        state
     }
 }
