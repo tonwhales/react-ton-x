@@ -1,4 +1,3 @@
-import { Address } from 'ton';
 import { TonhubLocalTransactionResponse, TonhubSignResponse, TonhubTransactionResponse, TonhubWalletConfig } from 'ton-x';
 import { TonhubLocalConfig, TonhubLocalConnector, TonhubLocalSignResponse } from 'ton-x/dist/connector/TonhubLocalConnector';
 
@@ -35,12 +34,12 @@ export type RemoteConnectState = {
     session: string,
     seed: string,
     walletConfig: TonhubWalletConfig,
-    address: Address
+    address: string
 };
 export type LocalConnectState = {
 	type: 'online',
     walletConfig: TonhubLocalConfig,
-    address: Address
+    address: string
 };
 
 export type ConnectState = RemoteConnectState | LocalConnectState;

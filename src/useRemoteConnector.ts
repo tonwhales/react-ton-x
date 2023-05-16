@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Address } from 'ton';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { TonhubConnector, TonhubSessionState, TonhubWalletConfig } from 'ton-x';
 import { RemoteConnectState, TonhubApi } from './types';
 import { backoff } from './utils/time';
@@ -193,7 +192,7 @@ export function useRemoteConnector(config: {
 	const state = useMemo(() => {
 		return connectionState.type === 'online' ? {
 			...connectionState,
-			address: Address.parse(connectionState.walletConfig.address),
+			address: connectionState.walletConfig.address,
 		} : connectionState;
 	}, [connectionState]);
 

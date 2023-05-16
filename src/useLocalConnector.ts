@@ -1,5 +1,4 @@
 import { useCallback, useMemo } from 'react'
-import { Address } from 'ton';
 import { TonhubLocalConnector } from 'ton-x';
 import { LocalConnectState, TonhubApi } from './types';
 
@@ -47,6 +46,6 @@ export function useLocalConnector(network: TonhubLocalConnector['network'], acti
             requestTransaction,
             revoke
         },
-        state: { type: 'online', address: Address.parse(connector!.config.address), walletConfig: connector!.config }
+        state: { type: 'online', address: connector!.config.address, walletConfig: connector!.config }
     }
 }
